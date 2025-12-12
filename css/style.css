@@ -17,7 +17,7 @@
 .azul {
     background-color: blue;
     border: 1px solid transparent;
-    color: white;
+    color: blue;
 }
 
 .cinza {
@@ -30,6 +30,11 @@
     background-color: red;
     border: 1px solid transparent;
     color: yellow;
+}
+
+.azul:hover{
+    background-color: darkblue;
+    color: white;
 }
 
 .cinza:hover {

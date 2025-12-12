@@ -20,6 +20,12 @@
     color: blue;
 }
 
+.amarelo{
+    background-color: yellow;
+    border: 1px solid transparent;
+    color: yellow;
+}
+
 .cinza {
     background-color: lightgray;
     border: 1px solid lightgray;

@@ -8,7 +8,8 @@ var posicaoY = 4;
 var vidas = 3;
 
 var rios = [1, 3, 6, 8];
-var rio = 1;
+var balsa = [2, 4, 6, 8];
+var direcao = [-1, 1, -1, 1]
 
 //resgistro de eventos
 document.addEventListener('DOMContentLoaded', inicializaJogo);
@@ -93,12 +94,16 @@ function inicializaJogo(){
     jogador.classList.add('jogador');
 
     //Criar rio
-    rios.forEach(rio => {
-    for(let i = 0; i < gridSizeY; i++){
-        let elem = document.querySelector('#bloco' + rio+i)
-        elem.classList.remove('cinza')
-        elem.classList.add('azul')
-    }
+    rios.forEach((rio, cont_rio) => {
+        for(let i = 0; i < gridSizeY; i++){
+
+            let elem = document.querySelector('#bloco' + rio + i)
+            elem.classList.remove('cinza')
+            if(balsa[cont_rio] == i)
+                elem.classList.add('amarelo')
+            else
+                elem.classList.add('azul')
+        }
     });
 
     atualizaVidas();
@@ -133,4 +138,27 @@ function criaGrid() {
             ambient.appendChild(divJogo);
         }
     }
+}
+
+setInterval(movimentaBalsas, 1500);
+
+function movimentaBalsas(){
+    rios.forEach((rio, index) => {
+        let balsaAtual = document.querySelector('#bloco' + rio + balsa[index]);
+
+        if(direcao[index] == 1){
+            balsa[index]++
+            if(balsa[index] == gridSizeY -1){
+                
+            }
+        }else{
+            balsa[index]--
+        }
+        let balsaNova = document.querySelector('#bloco'+rio+(balsa[index]));
+
+        balsaAtual.classList.remove('amarelo');
+        balsaAtual.classList.add('azul');
+        balsaNova.classList.remove('azul');
+        balsaNova.classList.add('amarelo')
+    })
 }

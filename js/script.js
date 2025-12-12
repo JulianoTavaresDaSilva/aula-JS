@@ -5,7 +5,7 @@ var gridSizeY = 10;
 var posicaoX = 0
 var posicaoY = 0
 
-var vidas = 5
+var vidas = 3
 
 //resgistro de eventos
 document.addEventListener('DOMContentLoaded', inicializaJogo);
@@ -18,7 +18,7 @@ function removeVida(){
     vidas--;
 
     if(vidas == 0){
-        inicializaJogo();
+        atualizaVidas();
     }else{
         atualizaVidas();
     }
@@ -26,35 +26,52 @@ function removeVida(){
 
 function processaTecla(evento){
     let posicaoAtual = document.querySelector('#bloco'+posicaoX+posicaoY);
+    posicaoAtual.classList.remove('vermelho');
 
     if(evento.key == 'ArrowDown'){
+
         let novaPosicao = document.querySelector('#bloco'+(posicaoX + 1) + posicaoY)
         if(posicaoX < (gridSizeX -1)){
-            posicaoAtual.classList.remove('azul');
-            posicaoAtual.classList.add('cinza')
-            novaPosicao.classList.remove('cinza');
-            novaPosicao.classList.add('azul')
+            posicaoAtual.classList.remove('jogador');
+            novaPosicao.classList.add('jogador')
             posicaoX++
         }else{
-            posicaoAtual.classList.remove('azul')
             posicaoAtual.classList.add('vermelho')
+            removeVida();
         }
 
-    }
-    
-    if(evento.key == 'ArrowUp'){
-        if(posicaoX < (gridSizeX - 1)){
+    }else if(evento.key == 'ArrowUp'){
+
+        if(posicaoX > (gridSizeX - 10)){
             let novaPosicao = document.querySelector('#bloco'+(posicaoX - 1) + posicaoY)
-            posicaoAtual.classList.remove('azul');
-            posicaoAtual.classList.add('cinza')
-            novaPosicao.classList.remove('cinza');
-            novaPosicao.classList.add('azul')
+            posicaoAtual.classList.remove('jogador');
+            novaPosicao.classList.add('jogador')
             posicaoX--
         }else{
-            posicaoAtual.classList.remove('azul')
             posicaoAtual.classList.add('vermelho')
+            removeVida();
         }
 
+    }else if(evento.key == 'ArrowRight'){
+
+        if(posicaoY < (gridSizeY - 1)){
+            let novaPosicao = document.querySelector('#bloco' + posicaoX + (posicaoY + 1));
+            posicaoAtual.classList.remove('jogador');
+            novaPosicao.classList.add('jogador');
+            posicaoY++;
+        }else{
+            posicaoAtual.classList.add('vermelho');
+            removeVida();
+        }
+
+    }else if(posicaoY > (gridSizeY - 10)){
+        let novaPosicao = document.querySelector('#bloco' + posicaoX + (posicaoY - 1));
+            posicaoAtual.classList.remove('jogador');
+            novaPosicao.classList.add('jogador');
+            posicaoY--;
+    }else{
+            posicaoAtual.classList.add('vermelho');
+            removeVida();
     }
 
 }
@@ -67,10 +84,9 @@ function atualizaVidas(){
 function inicializaJogo(){
     criaGrid();
 
-    //Cria personagem
+    //Cria jogador
     let jogador = document.querySelector('#bloco'+posicaoX+posicaoY);
-    jogador.classList.remove('cinza');
-    jogador.classList.add('azul');
+    jogador.classList.add('jogador');
 
     atualizaVidas();
 }
